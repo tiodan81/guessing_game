@@ -9,8 +9,9 @@ var answers = ['yes', 'yes', 'yes', 34, 'yes', 2];
 var correctAnswers = 0;
 var corrections = ['my middle name is Paul.', 'I do play the guitar.', 'I am left-handed.', 'I am 34 years old.', 'I do love biking.', 'I have two eyeballs.'];
 var clarifications = ['To clarify:'];
+var message = '';
 
-var quiz = function () {
+function quiz() {
   for (var i = 0; i < questions.length;) {
 
     var response = prompt(questions[i] + '?');
@@ -52,16 +53,13 @@ var quiz = function () {
   }
 }
 
-quiz();
-
-
-var message = '';
-
-var messageBuilder = function (clarifications) {
+function messageBuilder(clarifications) {
   for (var j = 0; j < clarifications.length; j++) {
     message += clarifications[j] + ' ';
   }
-}
+};
+
+quiz();
 
 if (clarifications.length > 1) {
   messageBuilder(clarifications);
