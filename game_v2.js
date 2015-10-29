@@ -10,21 +10,31 @@ var correctAnswers = 0;
 var corrections = ['my middle name is Paul.', 'I do play the guitar.', 'I am left-handed.', 'I am 34 years old.', 'I do love biking.', 'I have two eyeballs.'];
 var clarifications = ['To clarify:'];
 var message = '';
+var result = document.getElementById('results');
+
+
 
 function quiz() {
   for (var i = 0; i < questions.length;) {
 
     var response = prompt(questions[i] + '?');
+    var questNum = i+1;
+    var answerNumber = "answer" + questNum.toString();
+    console.log(answerNumber);
+    var ans = document.getElementById(answerNumber);
+    console.log(ans);
 
     if (typeof(answers[i]) === 'string' && typeof(response) === 'string') {
       response = response.toLowerCase();
       if (response === 'yes' || response === 'y') {
         correctAnswers += 1;
         console.log(questions[i] + '? User responded "' + response + '". Correct.');
+        ans.innerHTML = 'Correct!';
         i++;
       } else if (response === 'no' || response === 'n') {
-        clarifications.push(corrections[i]);
+        // clarifications.push(corrections[i]);
         console.log(questions[i] + '? User responded "' + response + '". Incorrect.');
+        ans.innerHTML = corrections[i];
         i++;
       } else {
         alert('Please respond yes or no.');
@@ -36,10 +46,12 @@ function quiz() {
       if (response === answers[i]) {
         correctAnswers += 1;
         console.log(questions[i] + '? User responded "' + response + '". Correct.');
+        ans.innerHTML = 'Correct!';
         i++;
       } else if (response > answers[i] || response < answers[i]) {
-        clarifications.push(corrections[i]);
+        // clarifications.push(corrections[i]);
         console.log(questions[i] + '? User responded "' + response + '". Incorrect.');
+        ans.innerHTML = corrections[i];
         i++;
       } else {
         alert('Please enter a number.');
@@ -53,16 +65,16 @@ function quiz() {
   }
 }
 
-function messageBuilder(clarifications) {
-  for (var j = 0; j < clarifications.length; j++) {
-    message += clarifications[j] + ' ';
-  }
-};
+// function messageBuilder(clarifications) {
+//   for (var j = 0; j < clarifications.length; j++) {
+//     message += clarifications[j] + ' ';
+//   }
+// };
 
 quiz();
 
-if (clarifications.length > 1) {
-  messageBuilder(clarifications);
-}
+// if (clarifications.length > 1) {
+//   messageBuilder(clarifications);
+// }
 
-alert('Good work, you got ' + correctAnswers + ' out of ' + questions.length +' right! ' + message);
+result.innerHTML = 'Good work, you got ' + correctAnswers + ' out of ' + questions.length +' right! ';
