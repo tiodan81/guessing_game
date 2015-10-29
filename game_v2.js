@@ -7,9 +7,7 @@ alert('Glad you want to play the game, ' + name + '. We think you\'ll find it qu
 var questions = ['Is my middle name Paul', 'Do I play the guitar', 'Am I left-handed', 'How old am I', 'Do I love biking', 'How many eyeballs do I have'];
 var answers = ['yes', 'yes', 'yes', 34, 'yes', 2];
 var correctAnswers = 0;
-var corrections = ['my middle name is Paul.', 'I do play the guitar.', 'I am left-handed.', 'I am 34 years old.', 'I do love biking.', 'I have two eyeballs.'];
-var clarifications = ['To clarify:'];
-var message = '';
+var corrections = ['My middle name is Paul.', 'I do play the guitar.', 'I am left-handed.', 'I am 34 years old.', 'I do love biking.', 'I have two eyeballs.'];
 var result = document.getElementById('results');
 
 
@@ -19,62 +17,55 @@ function quiz() {
 
     var response = prompt(questions[i] + '?');
     var questNum = i+1;
-    var answerNumber = "answer" + questNum.toString();
-    console.log(answerNumber);
-    var ans = document.getElementById(answerNumber);
-    console.log(ans);
+    var ans = document.getElementById("answer" + questNum.toString());
+
+    var logMsg = function() {
+      return questions[i] + '? User responded "' + response + '". ';
+    }
+
+    function correctAns () {
+      correctAnswers += 1;
+      console.log(logMsg() + "Correct.");
+      ans.innerHTML = 'Correct!';
+      i++;
+    }
+
+    function incorrectAns () {
+      console.log(logMsg() + "Incorrect.");
+      ans.innerHTML = 'Incorrect! ' + corrections[i];
+      i++;
+    }
+
+    function invalidAns () {
+      alert('Invalid response. Try again.');
+      console.log(logMsg() + "Invalid.");
+      i = i;
+    }
 
     if (typeof(answers[i]) === 'string' && typeof(response) === 'string') {
       response = response.toLowerCase();
       if (response === 'yes' || response === 'y') {
-        correctAnswers += 1;
-        console.log(questions[i] + '? User responded "' + response + '". Correct.');
-        ans.innerHTML = 'Correct!';
-        i++;
+        correctAns();
       } else if (response === 'no' || response === 'n') {
-        // clarifications.push(corrections[i]);
-        console.log(questions[i] + '? User responded "' + response + '". Incorrect.');
-        ans.innerHTML = corrections[i];
-        i++;
+        incorrectAns();
       } else {
-        alert('Please respond yes or no.');
-        console.log(questions[i] + '? User responded "' + response + '". Incomprehensible.');
-        i = i;
+        invalidAns();
       }
     } else if (typeof(answers[i]) === 'number' && typeof(parseInt(response)) === 'number') {
       response = parseInt(response);
       if (response === answers[i]) {
-        correctAnswers += 1;
-        console.log(questions[i] + '? User responded "' + response + '". Correct.');
-        ans.innerHTML = 'Correct!';
-        i++;
+        correctAns();
       } else if (response > answers[i] || response < answers[i]) {
-        // clarifications.push(corrections[i]);
-        console.log(questions[i] + '? User responded "' + response + '". Incorrect.');
-        ans.innerHTML = corrections[i];
-        i++;
+        incorrectAns();
       } else {
-        alert('Please enter a number.');
-        console.log(questions[i] + '? User responded "' + response + '". Incomprehensible.');
-        i = i;
+        invalidAns();
       }
     } else {
-      alert("That's not a valid answer.");
-      i = i;
+      invalidAns();
     }
   }
 }
 
-// function messageBuilder(clarifications) {
-//   for (var j = 0; j < clarifications.length; j++) {
-//     message += clarifications[j] + ' ';
-//   }
-// };
-
 quiz();
-
-// if (clarifications.length > 1) {
-//   messageBuilder(clarifications);
-// }
 
 result.innerHTML = 'Good work, you got ' + correctAnswers + ' out of ' + questions.length +' right! ';
