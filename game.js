@@ -8,18 +8,21 @@ var questions = ['Is my middle name Paul', 'Do I play the guitar', 'Am I left-ha
 var answers = ['yes', 'yes', 'yes', 34, 'yes', 2];
 var correctAnswers = 0;
 var corrections = ['My middle name is Paul.', 'I do play the guitar.', 'I am left-handed.', 'I am 34 years old.', 'I do love biking.', 'I have two eyeballs.'];
-var images = []
+var images = ['stPaul', 'guitar','left_handed','34','bicycle','eyeballs'];
 var result = document.getElementById('results');
 
 
 
 function quiz() {
   for (var i = 0; i < questions.length;) {
-    var nextQuestion = document.createElement('h2');
-    var nextAnswer = document.createElement('p');
-    nextQuestion.innerHTML = questions[i];
-    document.body.appendChild(nextQuestion);
+    var questionNum = i + 1;
+    var currentQuestion = document.getElementById('question'+ questionNum.toString());
+    var currentAnswer = document.getElementById('answer'+ questionNum.toString());
+    var currentImage = document.getElementById("img" + questionNum.toString());
+    console.log(currentImage);
+    currentQuestion.innerHTML = questions[i];
     var response = prompt(questions[i] + '?');
+
 
     var logMsg = function() {
       return questions[i] + '? User responded "' + response + '". ';
@@ -28,14 +31,14 @@ function quiz() {
     function correctAns () {
       correctAnswers += 1;
       console.log(logMsg() + "Correct.");
-      nextAnswer.innerHTML = 'Correct!';
-
+      currentAnswer.innerHTML = 'Correct!';
+      currentImage.style.display = "block";
       i++;
     }
 
     function incorrectAns () {
       console.log(logMsg() + "Incorrect.");
-      ans.innerHTML = 'Incorrect! ' + corrections[i];
+      currentAnswer.innerHTML = 'Incorrect! ' + corrections[i];
       i++;
     }
 
