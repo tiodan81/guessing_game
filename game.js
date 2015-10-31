@@ -20,7 +20,7 @@ function quiz() {
     var currentAnswer = document.getElementById('answer'+ questionNum.toString());
     var currentImage = document.getElementById("img" + questionNum.toString());
     console.log(currentImage);
-    currentQuestion.innerHTML = questions[i];
+    currentQuestion.innerHTML = questions[i] + '?';
     var response = prompt(questions[i] + '?');
 
 
@@ -32,6 +32,7 @@ function quiz() {
       correctAnswers += 1;
       console.log(logMsg() + "Correct.");
       currentAnswer.innerHTML = 'Correct!';
+      currentAnswer.style.color = 'green';
       currentImage.style.display = "block";
       i++;
     }
@@ -39,6 +40,7 @@ function quiz() {
     function incorrectAns () {
       console.log(logMsg() + "Incorrect.");
       currentAnswer.innerHTML = 'Incorrect! ' + corrections[i];
+      currentAnswer.style.color = 'red';
       i++;
     }
 
